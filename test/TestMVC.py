@@ -19,10 +19,16 @@ class ControllerTest(unittest.TestCase):
         ControladorUsuarios.CrearTabla()
 
         # Insertar un Usuario en la tabla
-        usuario_prueba = Usuario( cedula="1234657", nombre="Prueba", apellido="Unitaria", direccion="kjgjhfjkhfhgfhgfh" )
+        usuario_prueba = Usuario( cedula="1234657", nombre="Prueba", apellido="Unitaria", direccion="kjgjhfjkhfhgfhgfh",
+                                 telefono="654321654", correo="no@tiene.com", codigo_municipio="05001", codigo_departamento="05" )
         ControladorUsuarios.InsertarUsuario( usuario_prueba )
 
-        # Verificar si la tabla quedo creada correctamente
+        # Buscar al usuario
+        usuario_buscado = ControladorUsuarios.BuscarUsuarioCedula( "1234657" )
+
+        # Verificar Si lo trajo correctamente
+        self.assertEqual(  usuario_prueba.cedula, usuario_buscado.cedula )
+
 
 
 if __name__ == '__main__':

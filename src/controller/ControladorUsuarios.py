@@ -11,10 +11,8 @@ class ControladorUsuarios :
 
     def CrearTabla():
         """ Crea la tabla de usuario en la BD """
-        connection = psycopg2.connect(database=SecretConfig.PGDATABASE, user=SecretConfig.PGUSER, password=SecretConfig.PGPASSWORD, host=SecretConfig.PGHOST, port=SecretConfig.PGPORT)
+        cursor = ControladorUsuarios.ObtenerCursor()
 
-        # Todas las instrucciones se ejecutan a tavés de un cursor
-        cursor = connection.cursor()
         cursor.execute("""create table usuarios (
   cedula varchar( 20 )  NOT NULL,
   nombre text not null,
@@ -25,39 +23,46 @@ class ControladorUsuarios :
   codigo_municipio varchar(40) not null,
   codigo_departamento varchar(40) NOT NULL
 ); """)
-        connection.commit()
+        cursor.connection.commit()
 
     def EliminarTabla():
         """ Borra la tabla de usuarios de la BD """
-        connection = psycopg2.connect(database=SecretConfig.PGDATABASE, user=SecretConfig.PGUSER, password=SecretConfig.PGPASSWORD, host=SecretConfig.PGHOST, port=SecretConfig.PGPORT)
+        cursor = ControladorUsuarios.ObtenerCursor()
 
-        # Todas las instrucciones se ejecutan a tavés de un cursor
-        cursor = connection.cursor()
         cursor.execute("""drop table usuarios""" )
         # Confirma los cambios realizados en la base de datos
         # Si no se llama, los cambios no quedan aplicados
-        connection.commit()
+        cursor.connection.commit()
 
 
     def InsertarUsuario( usuario : Usuario ):
-        """ Inserta una instancia de la clase Usuario en la tabla Usuarios """
-        try:
-            # Todas las instrucciones se ejecutan a tavés de un cursor
-            connection = psycopg2.connect(database=SecretConfig.PGDATABASE, user=SecretConfig.PGUSER, password=SecretConfig.PGPASSWORD, host=SecretConfig.PGHOST, port=SecretConfig.PGPORT)
-            # Todas las instrucciones se ejecutan a tavés de un cursor
-            cursor = connection.cursor()
-            cursor.execute(f"""
-            insert into usuarios (
-                cedula,   nombre,  apellido,  telefono,  correo, direccion, codigo_municipio, codigo_departamento
-            )
-            values 
-            (
-                '{usuario.cedula}',  '{usuario.nombre}', '{usuario.apellido}', '{usuario.telefono}', '{usuario.correo}', '{usuario.direccion}', '{usuario.codigo_municipio}', '{usuario.codigo_departamento}'
-            );    """)
-            
-            # Las instrucciones DDL y DML no retornan resultados, por eso no necesitan fetchall()
-            # pero si necesitan commit() para hacer los cambios persistentes
-            cursor.connection.commit()
-        except  :
-            cursor.connection.rollback() 
-            raise Exception("No fue posible insertar el usuario : " + usuario.cedula )        
+        """ Recibe un a instancia de la clase Usuario y la inserta en la tabla respectiva"""
+        cursor = ControladorUsuarios.ObtenerCursor()
+        cursor.execute( f"""insert into usuarios (cedula, nombre, apellido, 
+                            direccion, telefono, 
+                            codigo_municipio, codigo_departamento) 
+                        values ('{usuario.cedula}', '{usuario.nombre}', '{usuario.apellido}',  
+                            '{usuario.direccion}', '{usuario.telefono}',
+                            '{usuario.codigo_municipio}', 'usuario.codigo_departamento')""" )
+
+        cursor.connection.commit()
+
+    def BuscarUsuarioCedula( cedula ):
+        """ Trae un usuario de la tabla de usuarios por la cedula """
+        cursor = ControladorUsuarios.ObtenerCursor()
+
+        cursor.execute("""select cedula, nombre, apellido, direccion, correo, telefono, codigo_departamento, codigo_municipio
+        from usuarios where cedula = '1234657'""" )
+        fila = cursor.fetchone()
+        resultado = Usuario( cedula=fila[0], nombre=fila[1], apellido=fila[2], direccion=fila[3],telefono=fila[4],
+                            codigo_departamento=fila[5], codigo_municipio=fila[6], correo=fila[4]  )
+        return resultado
+
+
+
+    def ObtenerCursor():
+        """ Crea la conexion a la base de datos y retorna un cursor para hacer consultas """
+        connection = psycopg2.connect(database=SecretConfig.PGDATABASE, user=SecretConfig.PGUSER, password=SecretConfig.PGPASSWORD, host=SecretConfig.PGHOST, port=SecretConfig.PGPORT)
+        # Todas las instrucciones se ejecutan a tavés de un cursor
+        cursor = connection.cursor()
+        return cursor
