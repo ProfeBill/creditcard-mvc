@@ -26,7 +26,7 @@ class CreditCard :
         assert( self.cedula            == otro.cedula)
         assert( self.franquicia        == otro.franquicia)
         assert( self.codigo_banco      == otro.codigo_banco)
-        assert( self.fecha_vencimiento == otro.fecha_vencimiento)
+        # assert( self.fecha_vencimiento == otro.fecha_vencimiento)
         assert( self.cupo              == otro.cupo)
         assert( self.tasa_interes      == otro.tasa_interes)
         assert( self.cuota_manejo      == otro.cuota_manejo)

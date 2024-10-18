@@ -18,7 +18,7 @@ class TestCreditCard( unittest.TestCase ):
         CreditCardController.Insertar( tarjeta )
         
         # Buscarla
-        tarjeta_buscada = CreditCardController.Buscar( tarjeta.numero_tarjeta )
+        tarjeta_buscada = CreditCardController.BuscarTarjeta( tarjeta.numero_tarjeta )
         
         # Verificar si la trajo bien
         self.assertTrue(  tarjeta_buscada.EsIgual( tarjeta )  )
