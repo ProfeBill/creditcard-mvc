@@ -7,7 +7,7 @@ sys.path.append("src")
 from datetime import date
 
 from model.Usuario import Usuario
-from controller.ControladorUsuarios import ControladorUsuarios
+from controller.usuarios_controller import ControladorUsuarios
 
 import psycopg2
 

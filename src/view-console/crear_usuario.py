@@ -2,7 +2,7 @@ import sys
 sys.path.append("src")
 
 from model.Usuario import Usuario
-from controller.ControladorUsuarios import ControladorUsuarios
+from controller.usuarios_controller import ControladorUsuarios
 
 
 # Insertar un Usuario en la tabla

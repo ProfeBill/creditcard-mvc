@@ -9,17 +9,17 @@ import datetime
 from model.tarjeta import Tarjeta
 import SecretConfig
 
-class CreditCardController:
+class TarjetasController:
 
     def BorrarTodo():
         """ Borra todos las filas de la tabla tarjetas """
-        cursor = CreditCardController.ObtenerCursor()
+        cursor = TarjetasController.ObtenerCursor()
         cursor.execute(  "delete from tarjetas;")
         cursor.connection.commit()
 
     def CrearTabla():
         """ Crea la tabla de tarjetas en la BD """
-        cursor = CreditCardController.ObtenerCursor()
+        cursor = TarjetasController.ObtenerCursor()
 
         cursor.execute("""create table tarjetas (
   numero_tarjeta varchar(16) primary key not null,
@@ -35,7 +35,7 @@ class CreditCardController:
 
     def EliminarTabla():
         """ Borra la tabla de usuarios de la BD """
-        cursor = CreditCardController.ObtenerCursor()
+        cursor = TarjetasController.ObtenerCursor()
 
         cursor.execute("""drop table tarjetas""" )
         # Confirma los cambios realizados en la base de datos
@@ -45,7 +45,7 @@ class CreditCardController:
 
     def Insertar( tarjeta : Tarjeta ):
         """ Recibe un a instancia de la clase Tarjeta y la inserta en la tabla respectiva"""
-        cursor = CreditCardController.ObtenerCursor()
+        cursor = TarjetasController.ObtenerCursor()
         cursor.execute( f"""insert into tarjetas (numero_tarjeta, cedula, franquicia, codigo_banco, fecha_vencimiento, cupo, tasa_interes, cuota_manejo) 
                         values ('{tarjeta.numero_tarjeta}', '{tarjeta.cedula}', '{tarjeta.franquicia}', '{tarjeta.codigo_banco}', '{tarjeta.fecha_vencimiento}', {tarjeta.cupo}, {tarjeta.tasa_interes}, {tarjeta.cuota_manejo})""" )
 
@@ -53,7 +53,7 @@ class CreditCardController:
 
     def BuscarTarjeta( numero_tarjeta ) -> Tarjeta:
         """ Trae una tarjeta dado su numero """
-        cursor = CreditCardController.ObtenerCursor()
+        cursor = TarjetasController.ObtenerCursor()
 
         cursor.execute(f"""select numero_tarjeta, cedula, franquicia, codigo_banco, fecha_vencimiento, cupo, tasa_interes, cuota_manejo
         from tarjetas where numero_tarjeta = '{numero_tarjeta}'""" )

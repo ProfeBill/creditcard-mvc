@@ -2,7 +2,7 @@ import sys
 sys.path.append("src")
 
 from model.tarjeta import Tarjeta
-from controller.credit_card_controller import CreditCardController
+from controller.tarjetas_controller import TarjetasController
 
 from datetime import datetime
 
@@ -18,6 +18,6 @@ tarjeta.franquicia = input("Ingrese la franquicia: ")
 tarjeta.fecha_vencimiento = datetime.strptime( input("Ingrese la fecha de vencimiento: "), "%Y-%m-%d" )
 
 # Llamar al controlador para que inserte en la BD
-CreditCardController.Insertar( tarjeta )
+TarjetasController.Insertar( tarjeta )
 
 print( "Tarjeta insertada exitosamente!")
