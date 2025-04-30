@@ -6,7 +6,7 @@ sys.path.append( "src" )
 import psycopg2
 import datetime
 
-from model.credit_card import CreditCard
+from model.tarjeta import Tarjeta
 import SecretConfig
 
 class CreditCardController:
@@ -43,7 +43,7 @@ class CreditCardController:
         cursor.connection.commit()
 
 
-    def Insertar( tarjeta : CreditCard ):
+    def Insertar( tarjeta : Tarjeta ):
         """ Recibe un a instancia de la clase Tarjeta y la inserta en la tabla respectiva"""
         cursor = CreditCardController.ObtenerCursor()
         cursor.execute( f"""insert into tarjetas (numero_tarjeta, cedula, franquicia, codigo_banco, fecha_vencimiento, cupo, tasa_interes, cuota_manejo) 
@@ -51,14 +51,14 @@ class CreditCardController:
 
         cursor.connection.commit()
 
-    def BuscarTarjeta( numero_tarjeta ) -> CreditCard:
+    def BuscarTarjeta( numero_tarjeta ) -> Tarjeta:
         """ Trae una tarjeta dado su numero """
         cursor = CreditCardController.ObtenerCursor()
 
         cursor.execute(f"""select numero_tarjeta, cedula, franquicia, codigo_banco, fecha_vencimiento, cupo, tasa_interes, cuota_manejo
         from tarjetas where numero_tarjeta = '{numero_tarjeta}'""" )
         fila = cursor.fetchone()
-        resultado = CreditCard( numero_tarjeta=fila[0], cedula=fila[1], franquicia=fila[2], codigo_banco=fila[3], fecha_vencimiento=fila[4], cupo=fila[5], tasa_interes=fila[6], cuota_manejo=fila[7]  )
+        resultado = Tarjeta( numero_tarjeta=fila[0], cedula=fila[1], franquicia=fila[2], codigo_banco=fila[3], fecha_vencimiento=fila[4], cupo=fila[5], tasa_interes=fila[6], cuota_manejo=fila[7]  )
         return resultado
 
 

@@ -1,5 +1,5 @@
 import datetime
-class CreditCard :
+class Tarjeta :
     
     def __init__(self, numero_tarjeta : str ,
   cedula : str,
