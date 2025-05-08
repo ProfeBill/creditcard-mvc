@@ -1,5 +1,4 @@
-drop table tarjetas;
-create table tarjetas (
+create table if not exists tarjetas (
   numero_tarjeta varchar(16) primary key not null,
   cedula varchar(20) not null,
   franquicia varchar(20) not null,

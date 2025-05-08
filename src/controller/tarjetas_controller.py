@@ -11,35 +11,22 @@ import SecretConfig
 
 class TarjetasController:
 
-    def BorrarTodo():
-        """ Borra todos las filas de la tabla tarjetas """
-        cursor = TarjetasController.ObtenerCursor()
-        cursor.execute(  "delete from tarjetas;")
-        cursor.connection.commit()
-
     def CrearTabla():
-        """ Crea la tabla de tarjetas en la BD """
         cursor = TarjetasController.ObtenerCursor()
 
-        cursor.execute("""create table tarjetas (
-  numero_tarjeta varchar(16) primary key not null,
-  cedula varchar(20) not null,
-  franquicia varchar(20) not null,
-  codigo_banco varchar(5) not null,
-  fecha_vencimiento date,
-  cupo decimal,
-  tasa_interes decimal,
-  cuota_manejo decimal
-); """)
+        with open( "sql/crear-tarjetas.sql", "r"  ) as archivo:
+            consulta = archivo.read()
+
+        cursor.execute( consulta )
         cursor.connection.commit()
 
-    def EliminarTabla():
-        """ Borra la tabla de usuarios de la BD """
+    def BorrarTabla():
         cursor = TarjetasController.ObtenerCursor()
 
-        cursor.execute("""drop table tarjetas""" )
-        # Confirma los cambios realizados en la base de datos
-        # Si no se llama, los cambios no quedan aplicados
+        with open( "sql/borrar-tarjetas.sql", "r"  ) as archivo:
+            consulta = archivo.read()
+
+        cursor.execute( consulta )
         cursor.connection.commit()
 
 
