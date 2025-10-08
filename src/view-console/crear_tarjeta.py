@@ -18,6 +18,6 @@ tarjeta.franquicia = input("Ingrese la franquicia: ")
 tarjeta.fecha_vencimiento = datetime.strptime( input("Ingrese la fecha de vencimiento: "), "%Y-%m-%d" )
 
 # Llamar al controlador para que inserte en la BD
-TarjetasController.Insertar( tarjeta )
+TarjetasController.insertar( tarjeta )
 
 print( "Tarjeta insertada exitosamente!")

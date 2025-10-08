@@ -19,7 +19,7 @@ class Tarjeta :
         self.tasa_interes = tasa_interes
         self.cuota_manejo = cuota_manejo
         
-    def EsIgual( self, otro ):
+    def is_equal( self, otro ):
         """ Verifica si esta instancia de la clase es igual a otra """
         
         assert( self.numero_tarjeta == otro.numero_tarjeta )
