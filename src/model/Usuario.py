@@ -17,7 +17,7 @@ class Usuario:
         self.codigo_municipio = codigo_municipio
 
 
-    def esIgual( self, comparar_con ) :
+    def is_equal( self, comparar_con ) :
         """
         Compara el objeto actual, con otra instancia de la clase Usuario
         """

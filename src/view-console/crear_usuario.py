@@ -20,6 +20,6 @@ usuario.telefono = input("Telefono : ")
 usuario.codigo_departamento = input("Codigo Departamento : ")
 usuario.codigo_municipio = input("Codigo departamento : ")
 
-ControladorUsuarios.InsertarUsuario( usuario )
+ControladorUsuarios.insertar( usuario )
 
 print("Usuario insertado correctamente!")
